@@ -1,4 +1,4 @@
-let categoryTitle = document.getElementById("categoryTitle");
+const categoryTitle = document.getElementById("categoryTitle");
 const category = document.getElementById("category");
 const loadingState = document.getElementById("alert");
 const container = document.getElementById("recipeContainer");
@@ -15,7 +15,7 @@ let recipesPerLoad = 6;
 
 document.addEventListener("DOMContentLoaded", function () {
   let selectedCategory = category.value;
-  categoryTitle = `${selectedCategory} Recipes `;
+  categoryTitle.innerText = `${selectedCategory} Recipes `;
   fetchRecipes(selectedCategory);
 });
 
@@ -46,7 +46,7 @@ async function fetchRecipes(selectedCategory) {
 
 category.addEventListener("change", function () {
   let selectedCategory = category.value;
-  categoryTitle = `${selectedCategory} Recipes `;
+  categoryTitle.innerText = `${selectedCategory} Recipes `;
   fetchRecipes(selectedCategory);
 });
 

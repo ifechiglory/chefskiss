@@ -14,20 +14,19 @@ let displayedRecipes = 6;
 let recipesPerLoad = 6;
 
 document.addEventListener("DOMContentLoaded", function () {
-  fetchRecipes();
+  let selectedCategory = category.value;
+  categoryTitle = `${selectedCategory} Recipes `;
+  fetchRecipes(selectedCategory);
 });
 
-async function fetchRecipes() {
-  loadingState.textContent = "Loading recipes ...";
+async function fetchRecipes(selectedCategory) {
+  loadingState.textContent = "Loading recipes...";
   container.innerHTML = "";
   loadMore.classList.add("hidden");
 
-  let selectedCategory = category.value;
-  categoryTitle = `${selectedCategory} Recipes `;
-
   try {
     const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${selectedCategory}`,
     );
 
     if (!response.ok) {
@@ -44,6 +43,12 @@ async function fetchRecipes() {
     loadingState.textContent = err.message;
   }
 }
+
+category.addEventListener("change", function () {
+  let selectedCategory = category.value;
+  categoryTitle = `${selectedCategory} Recipes `;
+  fetchRecipes(selectedCategory);
+});
 
 function displayRecipes(recipiesToDisplay) {
   container.innerHTML = "";
@@ -128,7 +133,7 @@ async function fetchRecipeDetails(recipeId) {
 
   try {
     const response = await fetch(
-      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`
+      `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`,
     );
 
     if (!response.ok) {
@@ -201,6 +206,6 @@ function displayRecipeDetails(recipe) {
     ingredientsHeading,
     ingredientsList,
     instructionsHeading,
-    instructions
+    instructions,
   );
 }
